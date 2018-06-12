@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders to match a snapshot 1`] = `
+exports[`Hello World: renders to match a snapshot 1`] = `
 <div
   className="hello"
 >
