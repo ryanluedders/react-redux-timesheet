@@ -4,10 +4,40 @@ import EmployeeRow from './EmployeeRow';
 import { Table } from 'react-bootstrap';
 
 class EmployeeTable extends Component {
-  // TODO - actually implement this for realz
+
   render() {
-    return <div />;
+    let employeeRows = this.props.employees.map(employee => {
+      return (
+        <EmployeeRow employee={employee} key={employee._id} />
+      );
+    });
+
+    return (
+      <Table striped bordered condensed hover>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Admin</th>
+          </tr>
+        </thead>
+        <tbody>
+          {employeeRows}
+        </tbody>
+      </Table>
+    );
   }
+
+}
+
+EmployeeTable.defaultProps = {
+  employees: [],
+}
+
+EmployeeTable.propTypes = {
+  employees: PropTypes.array.isRequired,
 }
 
 export default EmployeeTable;
