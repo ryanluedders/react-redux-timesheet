@@ -10,10 +10,24 @@ describe('App Component', () => {
     expect(shallow(<App />)).toHaveLength(1);
   });
 
-  it('renders the Hello component', () => {
+  it('initializes with default greeting in state', () => {
+    expect(shallow(<App />)).toHaveState('greeting', 'App User');
+  });
+
+  it('initializes with alternate greeting in state', () => {
+    expect(shallow(<App greeting="React App User"/>)).toHaveState('greeting', "React App User");
+  });
+
+  it('renders the Hello component with a specified greeting', () => {
+    const app = shallow(<App greeting="Greeting From State" />);
+
+    expect(app).toContainReact(<Hello friend="Greeting From State" />);
+  })
+
+  it('renders the Hello component with a default greeting', () => {
     const app = shallow(<App />);
 
-    expect(app).toContainReact(<Hello friend="Woohoo!" />);
+    expect(app).toContainReact(<Hello friend="App User" />);
   })
 
 });
