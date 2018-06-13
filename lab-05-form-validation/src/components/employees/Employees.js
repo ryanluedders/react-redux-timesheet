@@ -20,7 +20,13 @@ class Employees extends Component {
         <Row>
           <PageHeader>Employees</PageHeader>
         </Row>
-        <Row>{/* TODO - Add a button to open the create employee route */}</Row>
+        <Row>
+          <div className="pull-right">
+            <LinkContainer to="/employees/create">
+              <Button bsStyle="primary">Create Employee</Button>
+            </LinkContainer>
+          </div>
+        </Row>
         <Row>
           <EmployeeTable employees={this.props.employees} actions={this.props.actions} />
         </Row>
