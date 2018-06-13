@@ -11,6 +11,13 @@ describe('Employees Detail Component: ', () => {
     mockStore = configureStore();
   });
 
-  //TODO: Implement me
-  it('should instantiate the Employees Detail Component', () => {});
+  it('should instantiate the Employees Detail Component', () => {
+    const component = mount(
+      <MemoryRouter>
+        <EmployeesDetail store={mockStore} />
+      </MemoryRouter>
+    );
+
+    expect(component).toIncludeText('Employees Detail');
+  });
 });

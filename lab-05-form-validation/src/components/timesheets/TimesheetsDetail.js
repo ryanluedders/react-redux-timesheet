@@ -4,7 +4,7 @@ import { PageHeader, Grid, Row } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as TimesheetActions from '../../actions/TimesheetActionCreator';
-import Timeunits from '../timeunits/Timeunits';
+import TimeUnits from '../timeunits/Timeunits';
 import TimesheetForm from './TimesheetForm';
 
 class TimesheetsDetail extends Component {
@@ -20,11 +20,32 @@ class TimesheetsDetail extends Component {
   }
 
   // TODO - implement me
-  handleSave(timesheet) {}
+  handleSave(timesheet) {
+    this.props.actions.updateTimesheet(timesheet).then(() => {
+      this.props.history.push(`/employees/all/timesheets`);
+    })
+  }
 
-  // TODO - implement me, too
   render() {
-    return <div />;
+    return (
+      <Grid>
+        <Row>
+          <PageHeader>Timesheet Detail</PageHeader>
+        </Row>
+        <Row>
+          <TimesheetForm 
+            timesheet={this.props.timesheet} 
+            actions={this.props.actions}
+            handleSave={this.handleSave} />
+        </Row>
+        {
+          this.props.timesheet && this.props.timesheet._id &&
+          <Row>
+            <TimeUnits timesheet={this.props.timesheet} actions={this.props.actions} />
+          </Row>
+        }
+      </Grid>
+    );
   }
 }
 

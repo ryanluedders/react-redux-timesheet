@@ -34,11 +34,27 @@ class TimesheetForm extends Component {
     this.handleSave = this.handleSave.bind(this);
   }
 
-  // TODO - implement me
-  componentWillReceiveProps(nextProps) {}
+  componentWillReceiveProps(nextProps) { 
+    this.setState({
+      name: {value: nextProps.timesheet.name, valid: null},
+      description: {value: nextProps.timesheet.description, valid: null},
+      beginDate: {value: nextProps.timesheet.beginDate, valid: null},
+      endDate: {value: nextProps.timesheet.endDate, valid: null},
+    })
+  }
 
-  // TODO - implement me
-  handleSave() {}
+  handleSave() { 
+    if (this.validateAll()) {
+      this.props.handleSave({
+        name: this.state.name.value,
+        description: this.state.description.value,
+        beginDate: this.state.beginDate.value,
+        endDate: this.state.endDate.value,
+        user_id: this.props.timesheet.user_id ? this.props.timesheet.user_id : this.state.user_id.value,
+        _id: this.props.timesheet._id,
+      })
+    }
+  }
 
   getDescriptionValidationState() {
     if (!this.state) return;
@@ -115,9 +131,85 @@ class TimesheetForm extends Component {
     return this.setState({ user_id: { value: value, valid: isValid } });
   }
 
-  // TODO - implement me
   render() {
-    return <div />;
+    return (
+      <form>
+        <FormGroup controlId="name" validationState={this.getNameValidationState}>
+          {!this.props.timesheet._id && (
+            <div>
+              <ControlLabel>Username</ControlLabel>
+              <FormControl
+                componentClass="select"
+                onChange={e => this.handleEmployeeChange(e.target.valid)}>
+                <option value="" disabled selected>
+                  Select an Employee
+                </option>
+                {this.props.employees.map(employee => {
+                  return <option value={employee._id}>{employee.username}</option>;
+                })}
+              </FormControl>
+            </div>
+          )}
+          <ControlLabel>Name</ControlLabel>
+          <FormControl
+            type="text"
+            value={this.state.name.value}
+            placeholder="Enter name"
+            onChange={e => this.handleNameChange(e.target.value)} />
+          <FormControl.Feedback />
+        </FormGroup>
+        <FormGroup
+          controlId="description"
+          validationState={this.getDescriptionValidationState()}
+        >
+          <ControlLabel>Description</ControlLabel>
+          <FormControl
+            type="text"
+            value={this.state.description.value}
+            placeholder="Enter description"
+            onChange={e => this.handleDescriptionChange(e.target.value)}
+          />
+          <FormControl.Feedback />
+        </FormGroup>
+        <FormGroup
+          controlId="beginDate"
+          validationState={this.getBeginDateValidationState()}
+        >
+          <ControlLabel>Begin Date</ControlLabel>
+          <FormControl
+            type="text"
+            value={this.state.beginDate.value}
+            placeholder="YYYY-MM-DD"
+            onChange={e => this.handleBeginDateChange(e.target.value)}
+          />
+          <FormControl.Feedback />
+        </FormGroup>
+        <FormGroup
+          controlId="endDate"
+          validationState={this.getEndDateValidationState()}
+        >
+          <ControlLabel>End Date</ControlLabel>
+          <FormControl
+            type="text"
+            value={this.state.endDate.value}
+            placeholder="YYYY-MM-DD"
+            onChange={e => this.handleEndDateChange(e.target.value)}
+          />
+          <FormControl.Feedback />
+        </FormGroup>
+        <Button
+          bsStyle="success"
+          onClick={this.handleSave}
+          disabled={!this.validateAll()}
+        >
+          {' '}
+          Save{' '}
+        </Button>&nbsp;
+        <LinkContainer to="/employees/all/timesheets">
+          <Button bsStyle="danger"> Cancel </Button>
+        </LinkContainer>
+      </form>
+    );
   }
 }
 
