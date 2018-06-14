@@ -406,13 +406,13 @@ Dustin Schau
     - location: where is the app at currently
 
 ### Demo of create-react-app and additional interesting notes
-    - yarn add normalize.css - remove margins
-    - every dependency has a cost 
-        - page load times
-        - time spent processing javascript/css
-    - flexbox: fixed header, fixed footer and scrollable content
-    - React vs. Angular, Angular has more boilerplate and different patterns, React is more "like javascript."
-        - [writing React will make you a better JS developer, writing Angular will make you a better Angular developer.]
+- yarn add normalize.css - remove margins
+- every dependency has a cost 
+    - page load times
+    - time spent processing javascript/css
+- flexbox: fixed header, fixed footer and scrollable content
+- React vs. Angular, Angular has more boilerplate and different patterns, React is more "like javascript."
+    - [writing React will make you a better JS developer, writing Angular will make you a better Angular developer.]
 
 ## React Day 2
 
